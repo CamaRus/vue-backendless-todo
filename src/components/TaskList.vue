@@ -20,13 +20,23 @@
             Cancel
           </button>
         </div>
-        <div style="display: flex; justify-content: space-between" v-else>
+        <div v-else style="display: flex; justify-content: space-between">
           <span>{{ task.text }} ({{ task.done ? "Done" : "Not Done" }})</span>
           <div style="text-align: end">
             <button class="btn-small" @click="removeTask(task.objectId)">
               Delete
             </button>
             <button class="btn-small" @click="editTask(task)">Edit</button>
+            <div class="card blue-grey darken-1">
+              <span class="card-title"
+                >Дата создания: {{ formatDate(task.created) }}</span
+              >
+            </div>
+            <div v-if="task.updated" class="card blue-grey darken-1">
+              <span class="card-title"
+                >Дата изменения: {{ formatDate(task.updated) }}</span
+              >
+            </div>
           </div>
         </div>
       </li>
@@ -36,6 +46,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import moment from "moment";
 
 export default {
   computed: {
@@ -60,9 +71,15 @@ export default {
         newText: task.newText,
       });
       task.editing = false;
+      this.fetchTasks();
     },
     cancelEditTask(task) {
       task.editing = false;
+    },
+    formatDate(date) {
+      const createdAtMoment = moment(date);
+      const formattedDate = createdAtMoment.format("DD.MM.YYYY HH:mm");
+      return formattedDate;
     },
   },
 };

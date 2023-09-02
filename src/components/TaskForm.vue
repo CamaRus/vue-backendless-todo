@@ -2,10 +2,12 @@
 <template>
   <div class="center-align">
     <h2>Add Task</h2>
-    <input v-model="taskText" />
-    <button class="btn-small waves-effect waves-light" @click="addTask">
-      Add Task<i class="material-icons right">send</i>
-    </button>
+    <div>
+      <input style="width: 50%" v-model="taskText" />
+      <button class="btn-small waves-effect waves-light" @click="addTask">
+        Add Task<i class="material-icons right">send</i>
+      </button>
+    </div>
   </div>
 </template>
 
